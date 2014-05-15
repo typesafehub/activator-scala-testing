@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+<meta charset="utf-8">
+
+<title>Scala Testing</title>
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<link rel="stylesheet" href="css/reveal.min.css">
+<link rel="stylesheet" href="css/theme/typesafe-training.css" id="theme">
+<link rel="stylesheet" href="lib/css/idea.css">
+<style>
+.reveal sup {
+  #color:sienna;
+  font-size:0.6em;
+}
+</style>
+
+<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+<script>
+  if( window.location.search.match( /print-pdf/gi ) ) {
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = 'css/print/pdf.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+  }
+</script>
+
+<!--[if lt IE 9]>
+<script src="lib/js/html5shiv.js"></script>
+<![endif]-->
+</head>
+
+<body>
+
+<div class="reveal">
+<div class="slides">
+
+
+<!-- ########################################################################################### -->
+<!-- BEGIN
+<!-- ########################################################################################### -->
+
+
+<section data-markdown data-background="#53cdec" data-state="h2Uppercase"><script type="text/template">
+## Scala Testing
+
+#### Writing unit/integration tests for Scala applications.
+
+#### Kip Sigman, Typesafe Consultant
+</script></section>
+
+<!-- ########################################################################################### -->
+
+<section>
+<section id="overview" data-markdown><script type="text/template">
+## Review of Software Testing
+
+</script></section>
+
+<section>                      
+  <ul>
+    <li><b>Unit Test</b>: Code that tests behavior of an individual unit of application code, such as a method or class. Provides a safety harness for future code changes.</li>
+    <li class="fragment"><b>Integration (Functional) Test</b>: Code to test the behavior of a set of units operating together. Can be used to simulate a user interaction with an application.</li>
+    <li class="fragment"><b>Assert</b>: Statement used in unit tests to assert that a particular condition must be true. If the condition is false, the test fails.</li>
+    <li class="fragment"><b>Matcher</b>: A rule that can be used as a building block to create custom assertions in a declarative programming style.</li>
+    <li class="fragment"><b>Mock</b>: Simulated object that mimics behavior of real objects in controlled ways. Used to replace dependencies in a class under test to limit test scope.</li>
+  </ul>
+
+</section>
+<section>                      
+  <ul>
+    <li><b>Test Driven Development (TDD)</b>: Practice of first writing a (failing) test prior to writing the code for a feature. Feature code is refined until it passes test(s).</li>
+    <li class="fragment"><b>Behavior Driven Development (BDD)</b>: Software development process building on TDD and other established agile processes with the purpose of keeping the focus on business goals. Applied in testing by writing tests in a descriptive manner and in order of business priority.</li>
+  </ul>
+</section>
+
+</section>
+
+<!-- ########################################################################################### -->
+
+<section id="frameworks" data-markdown><script type="text/template">
+## Testing in Scala
+
+- Many testing frameworks available.
+- Tests reside in project source but separated from application code. Convention is the Maven<sup>1</sup> Standard Directory Layout (src/test/scala).
+- sbt (build tool for Scala) has tasks for running tests, IDEs (Eclipse<sup>2</sup> / IntelliJ IDEA<sup>3</sup>) have plugins to run tests.
+
+<p>
+<br/>
+<small>1. [http://maven.apache.org/](http://maven.apache.org/)</small>
+<br/>
+<small>2. [http://www.eclipse.org/](http://www.eclipse.org/)</small>
+<br/>
+<small>3. [http://www.jetbrains.com/idea/](http://www.jetbrains.com/idea/)</small>
+</p>
+</script></section>
+
+<!-- ########################################################################################### -->
+<section>
+<section id="frameworks" data-markdown><script type="text/template">
+## Testing Frameworks
+
+</script></section>
+
+<section data-markdown><script type="text/template">
+## JUnit<sup>1</sup> & TestNG<sup>2</sup>
+
+- Java testing frameworks that can be used with Scala.
+- Use asserts to verify test values.
+- Can be used with add-ons, such as Hamcrest<sup>3</sup> for matchers or Mockito<sup>4</sup> for mocks.
+- Supported by sbt (with a plugin) and IDEs.
+
+<p>
+<br/>
+<small>1. [http://junit.org](http://junit.org)</small>
+<br/>
+<small>2. [http://testng.org](http://testng.org)</small>
+<br/>
+<small>3. [http://hamcrest.org](http://hamcrest.org)</small>
+<br/>
+<small>4. [http://code.google.com/p/mockito/](http://code.google.com/p/mockito/)</small>
+</p>
+</script></section>
+
+<section data-markdown><script type="text/template">
+## ScalaTest<sup>1</sup>
+
+- Testing framework for Scala.
+- Supports many test specification styles through traits, including xUnit and BDD.
+- Offers integration with other tools to provide a rich feature set.
+- Supported by sbt and IDEs.
+
+<p>
+<br/>
+<small>1. [http://www.scalatest.org](http://www.scalatest.org)</small>
+</p>
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Specs2<sup>1</sup>
+
+- BDD focused testing framework with similar syntax to ScalaTest’s WordSpec with Matchers.
+- Offers integration with other tools to provide a rich feature set.
+- Supported by sbt and IDEs (with JUnitRunner).
+- Default testing for Play Framework.
+
+<p>
+<br/>
+<small>1. [http://etorreborre.github.io/specs2/](http://etorreborre.github.io/specs2/)</small>
+</p>
+</script></section>
+
+<section data-markdown><script type="text/template">
+## ScalaCheck<sup>1</sup>
+
+- Automated property-based testing.</li>
+- Uses random generators to generate inputs for multiple property checks.</li>
+- ScalaTest and Specs2 provide integration with ScalaCheck.</li>
+
+<p>
+<br/>
+<small>1. [http://www.scalacheck.org](http://www.scalacheck.org)</small>
+</p>
+</script></section>
+</section>
+<!-- ########################################################################################### -->
+
+<section data-markdown><script type="text/template">
+## Learn More
+
+- Typesafe Activator: <a href="http://typesafe.com/activator">http://typesafe.com/activator</a>
+  - Test Patterns in Scala
+- sbt docs: [http://www.scala-sbt.org](http://www.scala-sbt.org)
+- JUnit: <a href="http://junit.org/">http://junit.org/</a>
+- TestNG: <a href="http://testng.org/">http://testng.org/</a>
+- ScalaTest: <a href="http://www.scalatest.org/">http://www.scalatest.org/</a>
+- Specs2: <a href="http://etorreborre.github.io/specs2/">http://etorreborre.github.io/specs2/</a>
+- ScalaCheck: <a href="http://www.scalacheck.org/">http://www.scalacheck.org/</a>
+
+<br/>
+Kip Sigman (@kipsigman)
+</script></section>
+
+<!-- ########################################################################################### -->
+<!-- END
+<!-- ########################################################################################### -->
+
+
+</div>
+</div>
+
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.min.js"></script>
+<script>
+
+  // Full list of configuration options available here:
+  // https://github.com/hakimel/reveal.js#configuration
+  Reveal.initialize({
+    controls: true,
+    progress: true,
+    history: true,
+    center: true,
+    maxScale: 2.0,
+
+    theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+    transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+    // Optional libraries used to extend on reveal.js
+    dependencies: [
+      { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+      { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+      { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+      { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+      { src: 'socket.io/socket.io.js', async: true },
+      { src: 'plugin/notes-server/client.js', async: true }
+    ]
+  });
+</script>
+
+</body>
+</html>
