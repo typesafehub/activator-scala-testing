@@ -1,0 +1,160 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html>
+<head>
+    <title>Scala Testing</title>
+</head>
+<body>
+  <div>
+    <h2>Scala Testing</h2>
+    <p>
+    A sample application demonstrating unit testing with various frameworks: ScalaTest, Specs2, ScalaCheck, JUnit, and TestNG.
+    </p>
+    <p>
+    This template is a companion to the <a href="https://www.youtube.com/watch?v=W9yMkao_AZg">Scala Testing video</a> on the 
+    <a href="https://www.youtube.com/user/typesafehub">Typesafe YouTube channel</a>.
+    You can find the slides from the video in the "presentation" directory of the project.
+    </p>
+    <p>
+    For each framework, unit testing is demonstrated with tests written against scala's List class and a simple
+    domain and service model located in the <b>src/main/scala/models</b> directory.
+    </p>
+    <p>
+    You can run the tests with <a href="http://www.scala-sbt.org">sbt</a> or your favorite IDE. Here are some helpful links:
+    <ul>
+      <li><a href="http://www.scala-sbt.org/release/docs/Detailed-Topics/Testing.html">Testing with sbt</a></li>
+      <li><a href="http://scala-ide.org/docs/current-user-doc/testingframeworks/index.html">Testing with Scala IDE</a></li>
+    </ul>
+    </p>
+    
+  </div>
+  <div>
+    <h2>ScalaTest</h2>
+    <p>
+    <a href="http://www.scalatest.org/">ScalaTest</a> is a popular testing framework for Scala applications and supports a variety of testing styles
+    by mixing in traits.
+    </p>
+    <p>
+    To use ScalaTest with sbt you need to add it as a managed dependency in <b>build.sbt</b>:
+    <pre><code>
+libraryDependencies += "org.scalatest" %% "scalatest" % "2.1.6" % "test"
+    </code></pre>
+    Scala IDE includes a ScalaTest plugin for running tests.
+    </p>
+    <p>
+    Sample test classes are located in the <b>src/test/scala/scalatest</b> directory and include the following:
+    <ul>
+      <li><b>ListFunSuite.scala</b>: A set of tests against List using a style similar to classic JUnit.</li>
+      <li><b>ListWordSpec.scala</b>: A set of tests against List using a popular Behavior Driven Development (BDD) style.</li>
+      <li><b>UserServiceSpec.scala</b>: Demonstrates mocking dependencies using the <b>MockitoSugar</b> trait.</li>
+    </ul>
+    </p>
+  </div>
+  <div>
+    <h2>Specs2</h2>
+    <p>
+    <a href="http://etorreborre.github.io/specs2/">Specs2</a> is a popular testing framework for Scala applications that uses a BDD style for test specifications.
+    </p>
+    <p>
+    To use Specs2 with sbt you need to add it as a managed dependency in <b>build.sbt</b>:
+    <pre><code>
+libraryDependencies += "org.specs2" %% "specs2" % "2.3.12" % "test"
+    </code></pre>
+    You can run Specs2 tests in Scala IDE by adding a JUnitRunner annotation in your test classes:
+    <pre><code>
+import org.junit.runner.RunWith
+import org.specs2.mutable.Specification
+import org.specs2.runner.JUnitRunner
+
+@RunWith(classOf[JUnitRunner])
+class ListSpec extends Specification {
+...
+}
+    </code></pre>
+    </p>
+    <p>
+    Sample test classes are located in the <b>src/test/scala/specs2</b> directory and include the following:
+    <ul>
+      <li><b>ListSpec.scala</b>: A set of tests against List.</li>
+      <li><b>UserServiceSpec.scala</b>: Demonstrates mocking dependencies using the <b>Mockito</b> trait.</li>
+    </ul>
+    </p>
+  </div>
+  <div>
+    <h2>ScalaCheck</h2>
+    <p>
+    <a href="http://www.scalacheck.org/">ScalaCheck</a> is a library for automated property-based testing. Property checks are run multiple times with
+    randomly generated inputs. You can use ScalaCheck directly or ScalaTest and Specs2 provide ScalaCheck integrations.
+    </p>
+    <p>
+    To use ScalaCheck with sbt you need to add it as a managed dependency in <b>build.sbt</b>:
+    <pre><code>
+libraryDependencies += "org.scalacheck" %% "scalacheck" % "1.11.4" % "test"
+    </code></pre>
+    A ScalaCheck Properties object can be run as a Scala application in Scala IDE.
+    </p>
+    <p>
+    Sample test classes:
+    <ul>
+      <li><b>src/test/scala/scalacheck/ListSpec.scala</b>: A set of properties for List.</li>
+      <li><b>src/test/scala/scalatest/ListCheckersSpec.scala</b>: ScalaTest using ScalaCheck integration.</li>
+      <li><b>src/test/scala/specs2/ListScalaCheckSpec.scala</b>: Specs2 using ScalaCheck integration.</li>
+    </ul>
+    </p>
+  </div>
+  <div>
+    <h2>JUnit</h2>
+    <p>
+    <a href="http://junit.org/">JUnit</a> is a widely used framework for unit testing Java. Because Java is interoperable with Scala,
+    you can use JUnit for testing Scala as well.
+    </p>
+    <p>
+    To use JUnit with sbt you need to add the library and a test interface as managed dependencies in <b>build.sbt</b>:
+    <pre><code>
+libraryDependencies ++= Seq(
+  "junit" % "junit" % "4.11" % "test",
+  "com.novocode" % "junit-interface" % "0.9" % "test"
+)
+    </code></pre>
+    If you want to use add-on libraries such as <a href="https://code.google.com/p/hamcrest/">Hamcrest</a> or
+    <a href="https://code.google.com/p/mockito/">Mockito</a>, you will need to add those dependencies as well:
+    <pre><code>
+libraryDependencies ++= Seq(
+  "org.hamcrest" % "hamcrest-core" % "1.3" % "test",
+  "org.mockito" % "mockito-core" % "1.9.5" % "test"
+)
+    </code></pre>  
+    Scala IDE includes a JUnit plugin for running tests.
+    </p>
+    <p>
+    Sample test classes are located in the <b>src/test/scala/junit</b> directory and include the following:
+    <ul>
+      <li><b>ListTest.scala</b>: A set of tests against List using asserts and Hamcrest matchers.</li>
+      <li><b>UserServiceTest.scala</b>: Demonstrates mocking dependencies using Mockito.</li>
+    </ul>
+    </p>
+  </div>
+  <div>
+    <h2>TestNG</h2>
+    <p>
+    <a href="http://testng.org">TestNG</a> is a popular alternative to JUnit for testing Java. It can also be used for testing Scala.
+    </p>
+    <p>
+    To use TestNG with sbt you need to add the library as a managed dependency in <b>build.sbt</b>:
+    <pre><code>
+libraryDependencies += "org.testng" % "testng" % "6.8.8" % "test"
+    </code></pre>
+    and add a plugin to <b>project/plugins.sbt</b>:
+    <pre><code>
+    addSbtPlugin("de.johoop" % "sbt-testng-plugin" % "3.0.0")
+    </code></pre>
+    Scala IDE requires installation of a <a href="http://testng.org/doc/eclipse.html">TestNG plugin</a> for running tests.
+    </p>
+    <p>
+    Sample test classes are located in the <b>src/test/scala/testng</b> directory and include the following:
+    <ul>
+      <li><b>ListTest.scala</b>: A set of tests against List.</li>
+    </ul>
+    </p>
+  </div>
+</body>
+</html>
