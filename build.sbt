@@ -1,11 +1,11 @@
-name := """scala-test-samples"""
+name := """scala-testing"""
 
 version := "1.0"
 
-scalaVersion := "2.11.0"
+scalaVersion := "2.11.1"
 
 // ScalaTest
-libraryDependencies += "org.scalatest" %% "scalatest" % "2.1.6" % "test"
+libraryDependencies += "org.scalatest" %% "scalatest" % "2.1.7" % "test"
 
 // Specs2
 libraryDependencies += "org.specs2" %% "specs2" % "2.3.12" % "test"
